@@ -1,0 +1,11 @@
+# Ignora Mediul Virtual
+venv/
+
+# Ignora cache-ul si fisierele temporare
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignora fisierele de configurare ale sistemului
+.DS_Store
+Thumbs.db
