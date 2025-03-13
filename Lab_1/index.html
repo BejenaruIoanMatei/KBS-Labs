@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Selectare Optional</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Selectare Optional</h1>
+
+    <label for="difficulty">Nivel de dificultate:</label>
+    <select id="difficulty">
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+    </select>
+
+    <label for="type">Tip de curs:</label>
+    <select id="type">
+        <option value="Theoretical">Theoretical</option>
+        <option value="Practical">Practical</option>
+        <option value="Mixed">Mixed</option>
+    </select>
+
+    <label for="interest">Domeniu de interes:</label>
+    <select id="interest">
+        <option value="AI">AI</option>
+        <option value="Programming">Programming</option>
+        <option value="Maths">Maths</option>
+        <option value="Games">Games</option>
+        <option value="Communication">Communication</option>
+        <option value="Data Analysis">Data Analysis</option>
+        <option value="Design">Design</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Technology">Technology</option>
+        <option value="Security">Security</option>
+    </select>
+
+    <button onclick="selectBestOptions()">Select</button>
+
+    <div id="results" class="results"></div>
+</div>
+
+<script>
+async function selectBestOptions() {
+    const difficulty = document.getElementById('difficulty').value;
+    const type = document.getElementById('type').value;
+    const interest = document.getElementById('interest').value;
+
+    const response = await fetch('/get_best_options', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ difficulty, type, interest })
+    });
+
+    const data = await response.json();
+
+    let results = '';
+    for (const packageName in data) {
+        results += `<p><strong>${packageName}:</strong> ${data[packageName]}</p>`;
+    }
+
+    document.getElementById('results').innerHTML = results;
+}
+</script>
+
+</body>
+</html>
