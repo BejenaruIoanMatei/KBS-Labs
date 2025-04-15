@@ -26,6 +26,10 @@
    (assert (optiune (read)))
 )
 
+;     Practic se creeaza o variabila 'a' care retine un fapt din baza de cunostinte (adica din fapt_initiale)
+; faptul pe care il retine este (meniu), (cauta meniu si il leaga la 'a')
+; (retract ?a) elimina faptul pentru a preveni executiile repetate
+
 (defrule adauga_student
    ?a <- (optiune 1)
    =>
@@ -48,7 +52,7 @@
    
    (if (not (any-factp ((?s student)) (eq ?s:nume ?nume)))
       then
-      (printout t "Studentul " ?nume " nu exista in baza de date!" crlf crlf)
+      (printout t "Studentul " ?nume " nu exista!" crlf crlf)
       (assert (meniu))
       else
       (printout t "Introduceti punctajele la laborator (separate prin spatiu): ")
@@ -223,3 +227,6 @@
    (printout t crlf "Optiune invalida! Alege o optiune valida (1-6)." crlf crlf)
    (assert (meniu))
 )
+
+; De modificat pentru a accepta doar inregistrari cu numar matricol
+; Cand sunt doi studenti cu acelasi nume se blocheaza daca incerc alta actiune
